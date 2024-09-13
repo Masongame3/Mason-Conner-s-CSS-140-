@@ -1,0 +1,17 @@
+public class FindOdd {
+    public static int findIt(int[] arr) {
+        
+        int result = 0;
+        
+        for (int num : arr) {
+            result ^= num;
+        }
+ 
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {7, 3, 3, 7, 7};
+        System.out.println(findIt(arr)); 
+    }
+}
