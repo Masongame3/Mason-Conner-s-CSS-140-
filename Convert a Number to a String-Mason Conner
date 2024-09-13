@@ -1,0 +1,13 @@
+class Kata {
+  public static String numberToString(int num) {
+    // Convert the integer to string and return it
+    return Integer.toString(num);
+  }
+
+  public static void main(String[] args) {
+    // Test cases
+    assert numberToString(332).equals("332");
+    assert numberToString(21).equals("21");
+    assert numberToString(612).equals("612");
+  }
+}
