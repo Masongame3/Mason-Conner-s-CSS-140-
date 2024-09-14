@@ -1,0 +1,70 @@
+import java.util.Objects;
+
+public class Fraction implements Comparable<Fraction> {
+    private final long top;
+    private final long bottom;
+
+    public Fraction(long numerator, long denominator) {
+         if (denominator == 0) {
+            throw new ArithmeticException("Denominator cannot be zero.");
+        }
+        
+        long gcd = gcd(numerator, denominator);
+        this.top = numerator / gcd;
+        this.bottom = denominator / gcd;
+    }
+
+    // Helper method to compute the greatest common divisor (GCD)
+    private long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return Math.abs(a); // Always return a positive gcd
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(top, bottom);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fraction)) return false;
+        Fraction f = (Fraction) o;
+        return compareTo(f) == 0; // Two fractions are equal if they are equivalent
+    }
+
+    @Override
+    public int compareTo(Fraction f2) {
+        return Long.compare(top * f2.bottom, f2.top * bottom);
+    }
+
+    // Add two fractions
+    public Fraction add(Fraction f2) {
+        long numerator = this.top * f2.bottom + f2.top * this.bottom;
+        long denominator = this.bottom * f2.bottom;
+        return new Fraction(numerator, denominator); // Return the new fraction in simplified form
+    }
+
+    // Convert fraction to string in the form "numerator/denominator"
+    @Override
+    public String toString() {
+        if (bottom == 1) {
+            return String.valueOf(top); // If denominator is 1, just return the numerator
+        }
+        return top + "/" + bottom;
+    }
+}
+
+// Make Main non-public
+class Main {
+    public static void main(String[] args) {
+        Fraction fraction1 = new Fraction(3, 10);
+        Fraction fraction2 = new Fraction(7, 6);
+        System.out.println(fraction1.add(fraction2)); // Outputs: 37/40
+        System.out.println(new Fraction(9, 1)); // Outputs: 3
+    }
+}
